@@ -16,6 +16,10 @@ service:
   # -- From vLLM docs: please do not name the service as vllm, otherwise environment variables set by Kubernetes might conflict with vLLM’s environment variables, because Kubernetes sets environment variables for each service with the capitalized service name as the prefix
   name: "vllm-llama"
 
+# -- Values for the Kubernetes ingress
+ingress: 
+  enabled: false
+
 # -- If added, a secret is created and mounted to the vLLM pod to pull models from HuggingFace
 hfToken: ""
 
