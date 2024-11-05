@@ -1,0 +1,31 @@
+model: 
+  # -- Hugging Face organization hosting the model
+  organization: "meta-llama"
+  # -- Name of the model to pull
+  name: "Llama-3.2-1B"
+  # -- Model temperature
+  temperature: "0.95"
+  # -- Maximum context length for the model
+  contextLength: "8192"
+  
+# -- Values for the PVC
+volumeSize: "10"
+
+# -- Values for the Kubernetes service
+service:
+  # -- From vLLM docs: please do not name the service as vllm, otherwise environment variables set by Kubernetes might conflict with vLLM’s environment variables, because Kubernetes sets environment variables for each service with the capitalized service name as the prefix
+  name: "vllm-llama"
+
+# -- If added, a secret is created and mounted to the vLLM pod to pull models from HuggingFace
+hfToken: ""
+
+# -- Docker images hosted here: https://hub.docker.com/r/vllm/vllm-openai/tags 
+image:
+  name: "vllm/vllm-openai"
+  tag: ""
+
+# -- Full list of arguments can be found here: https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#command-line-arguments-for-the-server 
+args: ["--load-format auto"]
+
+# -- Environment variables, full list can be found here: https://docs.vllm.ai/en/latest/serving/env_vars.html
+envVars: []

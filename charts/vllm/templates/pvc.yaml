@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vllm-{{ .Values.model.name | lower }}
+  labels:
+    {{- include "vllm.labels" . | nindent 4 }}
+namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.volumeSize }}
+  storageClassName: standard
+  volumeMode: Filesystem

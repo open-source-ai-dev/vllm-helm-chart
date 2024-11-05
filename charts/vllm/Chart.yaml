@@ -1,0 +1,10 @@
+apiVersion: 'v2'
+name: vllm 
+version: 0.1.0
+appVersion: 0.6.3
+description: vLLM OpenAI-Compatible Server
+keywords:
+  - vllm
+  - llm
+  - ai
+  - kubernetes

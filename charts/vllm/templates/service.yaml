@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.name | lower }}
+namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+  - name: http-{{ .Values.service.name | lower }}
+    port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: vllm-{{ .Values.model.name | lower }}
+  sessionAffinity: None
+  type: ClusterIP

@@ -1,0 +1,2 @@
+vLLM OpenAI-compatible endpoint is now deployed. You can test it by running the following curl command:
+{{ include "curlCommand" .}}

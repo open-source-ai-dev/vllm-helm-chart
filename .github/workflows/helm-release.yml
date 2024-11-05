@@ -1,0 +1,50 @@
+name: Release vLLM Helm Chart
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "charts/*/Chart.yaml"
+
+jobs:
+  release:
+    permissions:
+      contents: write
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          skip_existing: false
+          packages_with_index: true
+          charts_dir: charts/
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Login to GitHub Container Registry
+        run: |
+          echo "${GHCR_REGISTRY_PASSWORD}" | helm registry login ghcr.io --username ${{ github.actor }} --password-stdin
+        env:
+          GHCR_REGISTRY_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Push Charts to ghcr.io
+        run: |
+          for pkg in .cr-release-packages/*; do
+            if [ -z "${pkg:-}" ]; then
+              echo "No charts to release"
+              break
+            fi
+            helm push "${pkg}" oci://ghcr.io/${{ github.repository }}
+          done
