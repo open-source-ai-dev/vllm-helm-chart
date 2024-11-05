@@ -1,0 +1,18 @@
+apiVersion: v1
+entries:
+  vllm:
+  - apiVersion: v2
+    appVersion: 0.6.3
+    created: "2024-11-05T22:29:06.184043666Z"
+    description: vLLM OpenAI-Compatible Server
+    digest: f7659cb2edb1f639e12bb1d4fad4ecaba48014b705bbe48bc283afdf54e3123b
+    keywords:
+    - vllm
+    - llm
+    - ai
+    - kubernetes
+    name: vllm
+    urls:
+    - vllm-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-11-05T22:29:06.184053634Z"
