@@ -4,7 +4,7 @@ metadata:
   name: vllm-{{ .Values.model.name | lower }}
   labels:
     {{- include "vllm.labels" . | nindent 4 }}
-namespace: {{ .Release.Namespace }}
+  namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
     - ReadWriteOnce

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: vllm-{{ .Values.model.name | lower }}
+    name: vllm-{{ .Values.model.name | lower | replace "." "" }}
     namespace: {{ .Release.Namespace }}
     labels:
-      {{- include "vllm.selectorLabels" . | nindent 4 }}
+      {{- include "vllm.selectorLabels" . | nindent 6 }}
 spec:
     replicas: 1
     selector:
       matchLabels:
-        app: vllm-{{ .Values.model.name | lower }}
+        app: vllm-{{ .Values.model.name | lower  | replace "." "" }}
     template:
       metadata:
         labels:
-          app: vllm-{{ .Values.model.name | lower }}
+          app: vllm-{{ .Values.model.name | lower | replace "." "" }}
       spec:
         volumes:
         - name: cache-volume
